@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
+import "./App.css";
 
 const ALLERGENS = [
   "Glutenbevattende granen",
@@ -14,7 +15,7 @@ const ALLERGENS = [
   "Sesamzaad",
   "Zwaveldioxide en sulfieten",
   "Lupine",
-  "Weekdieren"
+  "Weekdieren",
 ];
 
 function App() {
@@ -38,11 +39,9 @@ function App() {
 
   const visible = useMemo(() => {
     return menu.filter((item) => {
-      // filter naam
       if (query && !item.Gerecht.toLowerCase().includes(query.toLowerCase())) {
         return false;
       }
-      // filter allergenen
       for (const aller of ALLERGENS) {
         if (selected.has(aller) && item[aller] && item[aller].trim() !== "") {
           return false;
@@ -53,21 +52,20 @@ function App() {
   }, [menu, selected, query]);
 
   return (
-    <div style={{ padding: "20px", fontFamily: "sans-serif" }}>
+    <div className="app">
       <h1>La Vista Allergenen Checker</h1>
 
-      <div style={{ marginBottom: "20px" }}>
+      <div className="search">
         <input
           placeholder="Zoek gerecht..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          style={{ padding: "5px", width: "300px" }}
         />
       </div>
 
-      <div style={{ marginBottom: "20px" }}>
+      <div className="allergens">
         {ALLERGENS.map((a) => (
-          <label key={a} style={{ marginRight: "15px" }}>
+          <label key={a} className="allergen">
             <input
               type="checkbox"
               checked={selected.has(a)}
@@ -79,14 +77,15 @@ function App() {
       </div>
 
       <h2>Gerechten ({visible.length})</h2>
-      <ul>
+      <ul className="dish-list">
         {visible.map((item, index) => (
-          <li key={index} style={{ marginBottom: "10px" }}>
+          <li key={index} className="dish">
             <strong>{item.Gerecht}</strong>
-            <br />
-            Allergenen:{" "}
-            {ALLERGENS.filter((a) => item[a] && item[a].trim() !== "").join(", ") ||
-              "Geen bekende allergenen"}
+            <div className="dish-allergens">
+              <em>Allergenen:</em>{" "}
+              {ALLERGENS.filter((a) => item[a] && item[a].trim() !== "").join(", ") ||
+                "Geen bekende allergenen"}
+            </div>
           </li>
         ))}
       </ul>
