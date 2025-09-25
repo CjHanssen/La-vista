@@ -52,43 +52,53 @@ function App() {
   }, [menu, selected, query]);
 
   return (
-    <div className="app">
-      <h1>La Vista Allergenen Checker</h1>
+    <div className="menu-app">
+      <header className="menu-header">
+        <h1>La Vista Menu</h1>
+        <p className="subtitle">Bekijk gerechten & allergenen</p>
+      </header>
 
-      <div className="search">
+      <div className="search-section">
         <input
+          type="text"
           placeholder="Zoek gerecht..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
+          className="search-input"
         />
       </div>
 
-      <div className="allergens">
+      <div className="allergens-section">
         {ALLERGENS.map((a) => (
-          <label key={a} className="allergen">
+          <label key={a} className="allergen-label">
             <input
               type="checkbox"
               checked={selected.has(a)}
               onChange={() => toggleAllerg(a)}
             />
-            {a}
+            <span className="allergen-text">{a}</span>
           </label>
         ))}
       </div>
 
-      <h2>Gerechten ({visible.length})</h2>
-      <ul className="dish-list">
-        {visible.map((item, index) => (
-          <li key={index} className="dish">
-            <strong>{item.Gerecht}</strong>
-            <div className="dish-allergens">
-              <em>Allergenen:</em>{" "}
-              {ALLERGENS.filter((a) => item[a] && item[a].trim() !== "").join(", ") ||
-                "Geen bekende allergenen"}
+      <h2 className="dish-count">Gerechten ({visible.length})</h2>
+      <div className="dish-container">
+        {visible.map((item, idx) => {
+          const allergList = ALLERGENS.filter(
+            (a) => item[a] && item[a].trim() !== ""
+          );
+          return (
+            <div key={idx} className="dish-card">
+              <div className="dish-name">{item.Gerecht}</div>
+              <div className="dish-allergens">
+                {allergList.length > 0
+                  ? allergList.join(", ")
+                  : "Geen allergenen bekend"}
+              </div>
             </div>
-          </li>
-        ))}
-      </ul>
+          );
+        })}
+      </div>
     </div>
   );
 }

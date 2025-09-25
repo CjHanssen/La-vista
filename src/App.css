@@ -1,70 +1,105 @@
-.app {
-  max-width: 900px;
+/* Container */
+.menu-app {
+  max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  font-family: system-ui, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
+  background-color: #fdfdfd;
 }
 
-h1 {
-  margin-bottom: 16px;
-  font-size: 24px;
+/* Header */
+.menu-header h1 {
+  margin: 0;
+  font-size: 28px;
   color: #222;
 }
-
-.search input {
-  width: 100%;
-  max-width: 400px;
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+.menu-header .subtitle {
+  margin-top: 4px;
   font-size: 14px;
+  color: #666;
 }
 
-.allergens {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 8px;
+/* Search */
+.search-section {
   margin: 20px 0;
 }
+.search-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+}
 
-.allergen {
+/* Allergenen filters */
+.allergens-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.allergen-label {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 10px;
+  gap: 8px;
+  padding: 8px 12px;
   border: 1px solid #ddd;
   border-radius: 6px;
   background: #fafafa;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background-color 0.2s;
+}
+.allergen-label:hover {
+  background-color: #f0f0f0;
+}
+.allergen-text {
+  font-size: 14px;
+  color: #444;
 }
 
-.allergen:hover {
-  background: #f0f0f0;
+/* Gerechten / kaart layout */
+.dish-count {
+  margin: 24px 0 12px;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 4px;
 }
 
-.dish-list {
-  list-style: none;
-  padding: 0;
+.dish-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
 }
 
-.dish {
-  margin-bottom: 12px;
-  padding: 12px;
+/* Voor bredere schermen: kaartjes in kolommen */
+@media (min-width: 600px) {
+  .dish-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.dish-card {
+  padding: 14px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  background: #fff;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
-
-.dish strong {
-  font-size: 16px;
-  color: #111;
+.dish-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #222;
 }
-
 .dish-allergens {
-  margin-top: 6px;
   font-size: 14px;
   color: #555;
+}
+
+/* Optioneel: donkere achtergrond op mobiel */
+@media (max-width: 500px) {
+  .menu-app {
+    background-color: #f5f5f5;
+  }
 }
